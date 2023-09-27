@@ -3,6 +3,7 @@
 
 #include "Socket.h"
 #include "UtilString.h"
+#include <iostream>
 
 static int sSocketId = 0;
 
@@ -11,7 +12,7 @@ Socket::Socket()
     if(++sSocketId == 1)
     {
         WSAData wsaData;
-        WSAStartup(MAKEWORD(2,2), &wsaData); // this is executed once during app startup
+        WSAStartup(MAKEWORD(2,2), &wsaData); // выполняется один раз во время запуска
     }
 }
 
@@ -20,12 +21,12 @@ Socket::~Socket()
     close();
 
     if(--sSocketId == 0)
-        WSACleanup(); // this is executed once during app teardown
+        WSACleanup(); // this is executed once during app teardown ....во время прерывания приложения
 }
 
 bool Socket::init(DWORD timeout)
 {
-    if ((m_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+    if ((m_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1) //1-тип адресации сокета, поток сокета для доставки данных, установка протокола сокета по умолчанию
     {
         printf("socket error\n");
         return false;
@@ -35,6 +36,7 @@ bool Socket::init(DWORD timeout)
         setsockopt(m_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(DWORD));
     m_timeout = timeout;
     return true;
+    //setsockopt установка поций сокета 1-сокет, 2-код опции зависит от типа сокета и протокола(указывает на максимальное время в течение которого сокет работает), 
 }
 
 bool Socket::isValid()
@@ -47,7 +49,7 @@ int Socket::send(const char* msg, int len)
     if(len <= 0)
         return 0;
     printf("SEND\n----------\n%s\n----------\n", msg);
-    return ::send(m_socket, msg, len, 0);
+    return ::send(m_socket, msg, len, 0);// flag 0 - работа send в обычном режиме
 }
 
 int Socket::sendStr(const std::string& str)

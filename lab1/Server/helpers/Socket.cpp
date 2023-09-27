@@ -57,8 +57,8 @@ int Socket::sendStr(const std::string& str)
 
 int Socket::recv()
 {
-    int cur = 0;
-    int total = 0;
+    int cur = 0; //текущее значение хранимого сообщения
+    int total = 0; //накопитель
     const int CHUNK = 1024;
     do
     {

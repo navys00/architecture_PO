@@ -1,1 +1,3 @@
-﻿  Server.vcxproj -> D:\вуз - 4 курс\architecture_PO\lab1\Debug\Server.exe
+﻿cl : командная строка  warning D9002: пропуск неизвестного параметра "/std:c++11"
+  AppServerMain.cpp
+  Server.vcxproj -> D:\вуз - 4 курс\architecture_PO\lab1\Debug\Server.exe
